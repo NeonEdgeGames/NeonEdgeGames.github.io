@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  Neon Edge Games — single-page studio card for publishers and partners.
+  One self-contained file: inline CSS + JS, no external libraries or fonts.
+  Russian notes are allowed in comments only; all visible text is English.
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Neon Edge Games is a small indie studio building Unity systems and games for RPG, farming and automation projects.">
+<title>Neon Edge Games — Indie Game Studio</title>
+<style>
+  :root{
+    --bg: #0b0f14;
+    --bg-soft: #11161d;
+    --card: #141a22;
+    --border: #1f2833;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --accent: #22e6c8;
+    --accent-dim: rgba(34, 230, 200, 0.14);
+    --accent-glow: rgba(34, 230, 200, 0.35);
+    --radius: 14px;
+    --maxw: 1060px;
+  }
+
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    background:
+      radial-gradient(1000px 500px at 80% -10%, rgba(34,230,200,0.08), transparent 60%),
+      radial-gradient(800px 400px at 10% 110%, rgba(34,230,200,0.06), transparent 60%),
+      var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  ::selection{ background: var(--accent); color: #04241f; }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .container{ width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Header ---------- */
+  header.site-header{
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(11, 15, 20, 0.75);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner{ display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 64px; }
+
+  .logo{
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; letter-spacing: 0.06em; font-size: 1.05rem;
+    color: var(--text); text-transform: uppercase; white-space: nowrap;
+  }
+  .logo:hover{ text-decoration: none; }
+  .logo .dot{
+    width: 12px; height: 12px; border-radius: 3px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow), 0 0 22px var(--accent-glow);
+    transform: rotate(45deg);
+  }
+  .logo .thin{ color: var(--muted); font-weight: 400; }
+
+  nav.main-nav{ display: flex; gap: 8px; }
+  nav.main-nav a{
+    color: var(--muted); font-size: 0.92rem; padding: 8px 14px; border-radius: 8px;
+    border: 1px solid transparent; transition: color .2s, border-color .2s, background .2s;
+  }
+  nav.main-nav a:hover{
+    color: var(--accent); border-color: var(--border); background: var(--accent-dim); text-decoration: none;
+  }
+
+  .nav-toggle{
+    display: none; background: none; border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); width: 40px; height: 40px; font-size: 1.1rem; cursor: pointer;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height: calc(72vh - 64px);
+    display: flex; align-items: center;
+    padding: 72px 0 64px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-badge{
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid rgba(34,230,200,0.35);
+    background: var(--accent-dim); border-radius: 999px; padding: 6px 14px; margin-bottom: 22px;
+  }
+  .hero-badge .pulse{
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%, 100%{ box-shadow: 0 0 0 0 var(--accent-glow); opacity: 1; }
+    50%{ box-shadow: 0 0 0 6px transparent; opacity: 0.6; }
+  }
+
+  h1.title{
+    font-size: clamp(2.6rem, 7vw, 4.4rem);
+    line-height: 1.05; letter-spacing: -0.02em; font-weight: 800;
+  }
+  h1.title .neon{
+    color: var(--accent);
+    text-shadow: 0 0 18px var(--accent-glow);
+  }
+  .subtitle{
+    margin-top: 20px; max-width: 620px; font-size: 1.15rem; color: var(--muted);
+  }
+  .hero-actions{ display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+  .btn{
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 22px; border-radius: 10px; font-size: 0.98rem; font-weight: 600;
+    border: 1px solid var(--border); color: var(--text); background: var(--card);
+    transition: transform .15s, box-shadow .2s, border-color .2s, background .2s, color .2s;
+    cursor: pointer;
+  }
+  .btn:hover{ text-decoration: none; transform: translateY(-2px); border-color: rgba(34,230,200,0.5); }
+  .btn-primary{
+    background: var(--accent); border-color: var(--accent); color: #04241f;
+    box-shadow: 0 0 24px var(--accent-glow);
+  }
+  .btn-primary:hover{ background: #4ff0d6; box-shadow: 0 0 34px var(--accent-glow); color: #04241f; }
+  .btn-ghost{ background: transparent; color: var(--accent); border-color: rgba(34,230,200,0.4); }
+  .btn-ghost:hover{ background: var(--accent-dim); }
+
+  /* ---------- Sections ---------- */
+  section.block{ padding: 72px 0; border-bottom: 1px solid var(--border); }
+  .section-head{ margin-bottom: 34px; }
+  .kicker{
+    font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  }
+  .kicker::after{ content: ""; flex: 0 0 64px; height: 1px; background: linear-gradient(90deg, var(--accent), transparent); }
+  h2{ font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -0.01em; }
+
+  /* About */
+  .about-wrap{
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: start;
+  }
+  .about-text{ font-size: 1.08rem; color: #c4cdd6; }
+  .stats{
+    display: grid; gap: 12px;
+  }
+  .stat{
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .stat b{ display: block; color: var(--accent); font-size: 1.05rem; letter-spacing: 0.04em; }
+  .stat span{ color: var(--muted); font-size: 0.9rem; }
+
+  /* Projects */
+  .cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card{
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px; display: flex; flex-direction: column; gap: 12px;
+    transition: transform .2s, border-color .2s, box-shadow .2s; position: relative; overflow: hidden;
+  }
+  .card::before{
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.6;
+  }
+  .card:hover{ transform: translateY(-4px); border-color: rgba(34,230,200,0.45); box-shadow: 0 12px 40px rgba(0,0,0,0.45); }
+  .card-tag{
+    align-self: flex-start; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(34,230,200,0.3);
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .card h3{ font-size: 1.25rem; letter-spacing: -0.01em; }
+  .card p{ color: var(--muted); font-size: 0.96rem; flex: 1; }
+  .card-link{
+    display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.92rem;
+    color: var(--accent); border-top: 1px solid var(--border); padding-top: 14px;
+  }
+  .card-link:hover{ text-decoration: none; color: #4ff0d6; }
+  .card-link.muted{ color: var(--muted); pointer-events: none; }
+
+  /* Links */
+  .links-box{
+    background: linear-gradient(135deg, rgba(34,230,200,0.10), transparent 55%), var(--card);
+    border: 1px solid rgba(34,230,200,0.35); border-radius: var(--radius);
+    padding: 30px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  }
+  .links-box h3{ font-size: 1.3rem; }
+  .links-box p{ color: var(--muted); margin-top: 6px; max-width: 480px; }
+
+  /* Contact */
+  .contact-box{ text-align: center; padding: 10px 0 4px; }
+  .contact-box p{ color: var(--muted); margin: 10px auto 22px; max-width: 480px; }
+  .mail-link{
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: clamp(1.05rem, 3.4vw, 1.6rem); font-weight: 700; color: var(--accent);
+    border: 1px solid rgba(34,230,200,0.4); border-radius: var(--radius);
+    padding: 16px 26px; background: var(--accent-dim); word-break: break-all;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .mail-link:hover{ text-decoration: none; box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-2px); }
+
+  /* Footer */
+  footer.site-footer{
+    padding: 26px 0 40px; color: var(--muted); font-size: 0.88rem;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  footer.site-footer .top-link{ color: var(--muted); }
+  footer.site-footer .top-link:hover{ color: var(--accent); text-decoration: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .cards{ grid-template-columns: 1fr; }
+    .about-wrap{ grid-template-columns: 1fr; }
+    .hero{ min-height: auto; padding: 56px 0; }
+  }
+  @media (max-width: 640px){
+    .nav-toggle{ display: inline-flex; align-items: center; justify-content: center; }
+    nav.main-nav{
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; background: rgba(11,15,20,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 10px 20px 18px; gap: 4px;
+    }
+    nav.main-nav.open{ display: flex; }
+    nav.main-nav a{ padding: 12px 14px; border: 1px solid var(--border); }
+    .links-box{ flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .hero-badge .pulse{ animation: none; }
+    .btn, .card, .mail-link{ transition: none; }
+  }
+</style>
+</head>
+<body id="top">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="#top" aria-label="Neon Edge Games — home">
+      <span class="dot" aria-hidden="true"></span>
+      Neon&nbsp;Edge&nbsp;<span class="thin">Games</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">☰</button>
+    <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="container">
+      <span class="hero-badge"><span class="pulse" aria-hidden="true"></span>Indie Studio</span>
+      <h1 class="title">Neon <span class="neon">Edge</span> Games</h1>
+      <p class="subtitle">Indie game studio. We build Unity systems and games for RPG, farming and automation projects</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">Explore Projects</a>
+        <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section class="block" id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">About the studio</div>
+        <h2 id="about-title">Small team, solid tools</h2>
+      </div>
+      <div class="about-wrap">
+        <p class="about-text">Neon Edge Games is a small indie studio run by Alexander. We make games and Unity tools: clean, clear and easy-to-use systems that save developers time.</p>
+        <div class="stats" aria-label="Studio focus areas">
+          <div class="stat"><b>RPG Systems</b><span>Inventory, hotbar, drag-and-drop UI</span></div>
+          <div class="stat"><b>Farming &amp; Automation</b><span>Games and tooling for factory-style gameplay</span></div>
+          <div class="stat"><b>Unity Tools</b><span>Reusable systems for developers</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="block" id="projects" aria-labelledby="projects-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Projects</div>
+        <h2 id="projects-title">What we are building</h2>
+      </div>
+      <div class="cards">
+
+        <article class="card">
+          <span class="card-tag">Unity System</span>
+          <h3>Complete RPG Inventory Kit</h3>
+          <p>A Unity inventory system for RPG games. Hotbar, drag-and-drop, slot filtering and JSON save/load.</p>
+          <span class="card-link muted" aria-hidden="true">Studio project</span>
+        </article>
+
+        <article class="card">
+          <span class="card-tag">Game · Farming Automation</span>
+          <h3>Farmival</h3>
+          <p>A farming automation game made by Neon Edge Games.</p>
+          <a class="card-link" href="https://www.youtube.com/@NeonEdgeGames" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="card">
+          <span class="card-tag">Game · Google Play</span>
+          <h3>Shad Shift</h3>
+          <p>A game available on Google Play.</p>
+          <a class="card-link" href="https://play.google.com/store/apps/details?id=com.NeonEdge_Games.ShadShift" target="_blank" rel="noopener noreferrer">View on Google Play <span aria-hidden="true">→</span></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Links -->
+  <section class="block" id="links" aria-labelledby="links-title">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Links</div>
+        <h2 id="links-title">Follow the studio</h2>
+      </div>
+      <div class="links-box">
+        <div>
+          <h3>Neon Edge Games on YouTube</h3>
+          <p>Devlogs, demos, trailers and progress updates from our games and Unity systems.</p>
+        </div>
+        <a class="btn btn-primary" href="https://www.youtube.com/@NeonEdgeGames" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="block" id="contact" aria-labelledby="contact-title" style="border-bottom: none;">
+    <div class="container">
+      <div class="section-head" style="text-align: center;">
+        <div class="kicker" style="justify-content: center;">Contact</div>
+        <h2 id="contact-title">Get in touch</h2>
+      </div>
+      <div class="contact-box">
+        <p>Questions, collaboration or feedback? The inbox is open.</p>
+        <a class="mail-link" href="mailto:vlad.majmeskul@gmail.com">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          vlad.majmeskul@gmail.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="container">
+  <footer class="site-footer">
+    <span>© <span id="year">2026</span> Neon Edge Games. All rights reserved.</span>
+    <a class="top-link" href="#top">Back to top ↑</a>
+  </footer>
+</div>
+
+<script>
+  // Mobile navigation toggle
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var nav = document.getElementById('mainNav');
+    if (!toggle || !nav) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close the menu after tapping a link (useful on phones)
+    nav.addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close the menu with Escape
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+
+  // Keep the footer year current
+  (function () {
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+  })();
+</script>
+</body>
+</html>
